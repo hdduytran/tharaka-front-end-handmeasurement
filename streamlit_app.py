@@ -3,9 +3,10 @@ import cv2
 import numpy as np
 import requests
 from copy import deepcopy
+import os
 
 
-ENDPOINT = "http://127.0.0.1:5000/measure"
+ENDPOINT = os.getenv("ENDPOINT", "http://127.0.0.1:5000/measure")
 
 STATUS_MAP = {
     0: "Success",
