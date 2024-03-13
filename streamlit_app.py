@@ -34,15 +34,15 @@ diameter_mm = st.number_input("Diameter of the coin in mm", value=23)
 st.write("Upload an image of your hand with a coin in the frame")
 
 file_upload = st.file_uploader("Upload an image", type=['jpg', 'jpeg', 'png'])
-use_camera = st.button("Use Camera")
-st.session_state['use_camera'] = st.session_state.get(
-    'use_camera', False) or use_camera
+# use_camera = st.button("Use Camera")
+# st.session_state['use_camera'] = st.session_state.get(
+#     'use_camera', False) or use_camera
 
-if st.session_state['use_camera']:
-    img_file_buffer = st.camera_input("Take a picture")
-    if img_file_buffer is not None:
-        # To read image file buffer as bytes:
-        file_upload = img_file_buffer
+# if st.session_state['use_camera']:
+#     img_file_buffer = st.camera_input("Take a picture")
+#     if img_file_buffer is not None:
+#         # To read image file buffer as bytes:
+#         file_upload = img_file_buffer
 
 if file_upload:
     with st.spinner("Measuring..."):
