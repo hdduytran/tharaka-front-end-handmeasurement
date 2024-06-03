@@ -19,9 +19,11 @@ STATUS_MAP = {
     7: "Invalid input",
 }
 
-def request_image_distance(image, diameter_mm):
+def request_image_distance(image):
     files = {'image': image}
     response = requests.post(ENDPOINT, files=files)
+    print(response.status_code)
+    print(response.text)
     return response.json()
 
 
@@ -29,7 +31,7 @@ st.title("Hand Measurements")
 
 st.write("This application measures the distance between the thumb and the index finger")
 
-diameter_mm = st.number_input("Diameter of the coin in mm", value=23)
+# diameter_mm = st.number_input("Diameter of the coin in mm", value=23)
 
 st.write("Upload an image of your hand with a coin in the frame")
 
@@ -47,10 +49,11 @@ file_upload = st.file_uploader("Upload an image", type=['jpg', 'jpeg', 'png'])
 if file_upload:
     with st.spinner("Measuring..."):
         file_upload_copy = deepcopy(file_upload)
-        result = request_image_distance(file_upload, diameter_mm)
+        result = request_image_distance(file_upload)
         st.markdown(f"# Status: {result['status']}")
         st.markdown(f"# {STATUS_MAP[result['status']]}")
         st.markdown(f"# Distance: {result['distance']}")
+        st.markdown(f"# Coin: {result['coin_class']}")
         image = cv2.imdecode(np.frombuffer(
             file_upload_copy.read(), np.uint8), cv2.IMREAD_COLOR)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
