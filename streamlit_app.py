@@ -57,7 +57,7 @@ if file_upload:
         st.markdown(f"# {STATUS_MAP[result['status']]}")
         st.markdown(f"# Distance: {result['distance']}")
         st.markdown(f"# Coin: {result['coin_class']}")
-        st.markdown(f"# Diameter" {DIAMETER_MM[result['coin_class']]})
+        st.markdown(f"# Diameter: {DIAMETER_MM[result['coin_class']]} mm")
         image = cv2.imdecode(np.frombuffer(
             file_upload_copy.read(), np.uint8), cv2.IMREAD_COLOR)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
