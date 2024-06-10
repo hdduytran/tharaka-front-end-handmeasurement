@@ -5,6 +5,9 @@ import requests
 from copy import deepcopy
 import os
 
+CLASS_NAMES = ["1 cent", "25 cents"]
+DIAMETER_MM ={CLASS_NAMES[0]: 19.05, CLASS_NAMES[1]: 24.3, "Unknown coin": 0}
+
 
 ENDPOINT = os.getenv("ENDPOINT", "http://127.0.0.1:5000/measure")
 
@@ -54,6 +57,7 @@ if file_upload:
         st.markdown(f"# {STATUS_MAP[result['status']]}")
         st.markdown(f"# Distance: {result['distance']}")
         st.markdown(f"# Coin: {result['coin_class']}")
+        st.markdown(f"# Diameter" {DIAMETER_MM[result['coin_class']]})
         image = cv2.imdecode(np.frombuffer(
             file_upload_copy.read(), np.uint8), cv2.IMREAD_COLOR)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
